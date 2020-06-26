@@ -9,6 +9,39 @@ require('admin-lte');
 
 window.Vue = require('vue');
 
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
+
+const routes = [{
+        path: '/dashboard',
+        component: require('./components/Dashboard.vue').default
+    },
+    {
+        path: '/profile',
+        component: require('./components/Profile.vue').default
+    },
+    {
+        path: '/user',
+        component: require('./components/User.vue').default
+    },
+    {
+        path: '/surat_keluar',
+        component: require('./components/SuratKeluar.vue').default
+    },
+    {
+        path: '/surat_masuk',
+        component: require('./components/SuratMasuk.vue').default
+    },
+    {
+        path: '/surat_penting',
+        component: require('./components/SuratPenting.vue').default
+    },
+]
+
+const router = new VueRouter({
+    routes // short for `routes: routes`
+})
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -30,4 +63,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    router
 });

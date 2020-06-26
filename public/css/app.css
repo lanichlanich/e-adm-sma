@@ -31227,6 +31227,10 @@ a.text-muted:hover {
   color: #ffed4a;
 }
 
+.color-red {
+  color: #e3342f;
+}
+
 /*!
  * Bootstrap v4.5.0 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors

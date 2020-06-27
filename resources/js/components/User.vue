@@ -69,19 +69,72 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="form-group">
-              <input type="email" class="form-control" id="name" placeholder="Masukan Nama Lengkap" />
-            </div>
+            <form @submit.prevent="tambahUser">
+              <div class="form-group">
+                <input
+                  v-model="form.name"
+                  type="text"
+                  name="name"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('name') }"
+                />
+                <has-error :form="form" field="name"></has-error>
+              </div>
 
-            <div class="form-group">
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                aria-describedby="emailHelp"
-                placeholder="Masukan Email"
-              />
-            </div>
+              <div class="form-group">
+                <input
+                  v-model="form.email"
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('email') }"
+                />
+                <has-error :form="form" field="email"></has-error>
+              </div>
+
+              <div class="form-group">
+                <input
+                  v-model="form.password"
+                  type="password"
+                  name="password"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('password') }"
+                />
+                <has-error :form="form" field="password"></has-error>
+              </div>
+
+              <div class="form-group">
+                <select
+                  class="form-control"
+                  v-model="form.type"
+                  name="type"
+                  :class="{ 'is-invalid': form.errors.has('type') }"
+                >
+                  <option>- pilih tipe User -</option>
+                  <option value="admin">Admin</option>
+                  <option value="user">User</option>
+                </select>
+                <has-error :form="form" field="type"></has-error>
+              </div>
+
+              <div class="form-group">
+                <textarea
+                  v-model="form.bio"
+                  name="bio"
+                  :class="{ 'is-invalid': form.errors.has('bio') }"
+                  class="form-control"
+                  id="bio"
+                  rows="3"
+                  placeholder="Isikan Biodata/Keterangan (Opsional)"
+                ></textarea>
+                <has-error :form="form" field="bio"></has-error>
+              </div>
+
+              <!-- <div class="form-group">
+              <label for="photo">Foto Profil</label>
+              <input type="file" class="form-control-file" id="photo" />
+              </div>-->
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -106,6 +159,11 @@ export default {
         photo: ""
       })
     };
+  },
+  methods: {
+    tambahUser() {
+      this.form.post("api/user");
+    }
   },
   mounted() {
     console.log("Component mounted.");

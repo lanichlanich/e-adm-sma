@@ -68,9 +68,23 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">...</div>
+          <div class="modal-body">
+            <div class="form-group">
+              <input type="email" class="form-control" id="name" placeholder="Masukan Nama Lengkap" />
+            </div>
+
+            <div class="form-group">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                aria-describedby="emailHelp"
+                placeholder="Masukan Email"
+              />
+            </div>
+          </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cance</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-primary">Tambah</button>
           </div>
         </div>
@@ -81,6 +95,18 @@
 
 <script>
 export default {
+  data() {
+    return {
+      form: new Form({
+        name: "",
+        email: "",
+        password: "",
+        type: "",
+        bio: "",
+        photo: ""
+      })
+    };
+  },
   mounted() {
     console.log("Component mounted.");
   }

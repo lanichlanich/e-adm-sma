@@ -17,11 +17,12 @@
           <table class="table table-hover text-nowrap">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Nama Lengkap</th>
                 <th>Email</th>
                 <th>Jenis Akun</th>
-                <th>Tanggal Registrasi</th>
+                <th>Tgl Terdaftar</th>
+                <th>Tgl Perubahan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -33,6 +34,7 @@
                 <td>
                   <span class="tag tag-success">Approved</span>
                 </td>
+                <td>Bacon ipsumfatback doner.</td>
                 <td>Bacon ipsumfatback doner.</td>
                 <td>
                   <button class="btn btn-sm btn-success">
@@ -68,8 +70,8 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <form @submit.prevent="tambahUser">
+          <form @submit.prevent="tambahUser">
+            <div class="modal-body">
               <div class="form-group">
                 <input
                   v-model="form.name"
@@ -77,6 +79,7 @@
                   name="name"
                   class="form-control"
                   :class="{ 'is-invalid': form.errors.has('name') }"
+                  placeholder="Masukan Nama"
                 />
                 <has-error :form="form" field="name"></has-error>
               </div>
@@ -88,6 +91,7 @@
                   name="email"
                   class="form-control"
                   :class="{ 'is-invalid': form.errors.has('email') }"
+                  placeholder="Masukan Email"
                 />
                 <has-error :form="form" field="email"></has-error>
               </div>
@@ -99,6 +103,7 @@
                   name="password"
                   class="form-control"
                   :class="{ 'is-invalid': form.errors.has('password') }"
+                  placeholder="Masukan Password"
                 />
                 <has-error :form="form" field="password"></has-error>
               </div>
@@ -134,12 +139,12 @@
               <label for="photo">Foto Profil</label>
               <input type="file" class="form-control-file" id="photo" />
               </div>-->
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">Tambah</button>
-          </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">Tambah</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -2261,6 +2261,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -39146,18 +39151,18 @@ var render = function() {
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(1),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.tambahUser($event)
-                      }
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.tambahUser($event)
                     }
-                  },
-                  [
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
                     _c(
                       "div",
                       { staticClass: "form-group" },
@@ -39173,7 +39178,11 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           class: { "is-invalid": _vm.form.errors.has("name") },
-                          attrs: { type: "text", name: "name" },
+                          attrs: {
+                            type: "text",
+                            name: "name",
+                            placeholder: "Masukan Nama"
+                          },
                           domProps: { value: _vm.form.name },
                           on: {
                             input: function($event) {
@@ -39207,7 +39216,11 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           class: { "is-invalid": _vm.form.errors.has("email") },
-                          attrs: { type: "email", name: "email" },
+                          attrs: {
+                            type: "email",
+                            name: "email",
+                            placeholder: "Masukan Email"
+                          },
                           domProps: { value: _vm.form.email },
                           on: {
                             input: function($event) {
@@ -39243,7 +39256,11 @@ var render = function() {
                           class: {
                             "is-invalid": _vm.form.errors.has("password")
                           },
-                          attrs: { type: "password", name: "password" },
+                          attrs: {
+                            type: "password",
+                            name: "password",
+                            placeholder: "Masukan Password"
+                          },
                           domProps: { value: _vm.form.password },
                           on: {
                             input: function($event) {
@@ -39364,11 +39381,11 @@ var render = function() {
                       ],
                       1
                     )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(2)
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(2)
+                ]
+              )
             ])
           ]
         )
@@ -39407,7 +39424,7 @@ var staticRenderFns = [
           _c("table", { staticClass: "table table-hover text-nowrap" }, [
             _c("thead", [
               _c("tr", [
-                _c("th", [_vm._v("ID")]),
+                _c("th", [_vm._v("No")]),
                 _vm._v(" "),
                 _c("th", [_vm._v("Nama Lengkap")]),
                 _vm._v(" "),
@@ -39415,7 +39432,9 @@ var staticRenderFns = [
                 _vm._v(" "),
                 _c("th", [_vm._v("Jenis Akun")]),
                 _vm._v(" "),
-                _c("th", [_vm._v("Tanggal Registrasi")]),
+                _c("th", [_vm._v("Tgl Terdaftar")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Tgl Perubahan")]),
                 _vm._v(" "),
                 _c("th", [_vm._v("Aksi")])
               ])
@@ -39434,6 +39453,8 @@ var staticRenderFns = [
                     _vm._v("Approved")
                   ])
                 ]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Bacon ipsumfatback doner.")]),
                 _vm._v(" "),
                 _c("td", [_vm._v("Bacon ipsumfatback doner.")]),
                 _vm._v(" "),
@@ -39494,7 +39515,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c(
         "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("Tambah")]
       )
     ])

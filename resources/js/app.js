@@ -14,32 +14,33 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 const routes = [{
-        path: '/dashboard',
-        component: require('./components/Dashboard.vue').default
-    },
-    {
-        path: '/profile',
-        component: require('./components/Profile.vue').default
-    },
-    {
-        path: '/user',
-        component: require('./components/User.vue').default
-    },
-    {
-        path: '/surat_keluar',
-        component: require('./components/SuratKeluar.vue').default
-    },
-    {
-        path: '/surat_masuk',
-        component: require('./components/SuratMasuk.vue').default
-    },
-    {
-        path: '/surat_penting',
-        component: require('./components/SuratPenting.vue').default
-    },
+    path: '/dashboard',
+    component: require('./components/Dashboard.vue').default
+},
+{
+    path: '/profile',
+    component: require('./components/Profile.vue').default
+},
+{
+    path: '/user',
+    component: require('./components/User.vue').default
+},
+{
+    path: '/surat_keluar',
+    component: require('./components/SuratKeluar.vue').default
+},
+{
+    path: '/surat_masuk',
+    component: require('./components/SuratMasuk.vue').default
+},
+{
+    path: '/surat_penting',
+    component: require('./components/SuratPenting.vue').default
+},
 ]
 
 const router = new VueRouter({
+    mode: 'history',
     routes // short for `routes: routes`
 })
 /**

@@ -32,3 +32,8 @@ $fa-font-path: "../webfonts";
 .color-red {
     color: $red;
 }
+
+.router-link-exact-active {
+    background-color: #E5E5E5 !important;
+    color: #1680FE !important;
+}

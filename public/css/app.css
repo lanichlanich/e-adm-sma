@@ -31231,6 +31231,11 @@ a.text-muted:hover {
   color: #e3342f;
 }
 
+.router-link-exact-active {
+  background-color: #E5E5E5 !important;
+  color: #1680FE !important;
+}
+
 /*!
  * Bootstrap v4.5.0 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors

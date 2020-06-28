@@ -22,4 +22,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('{path}', "HomeController@index")->where('path', '[\/\w\.-]*');
+Route::get('/{any}', 'HomeController@index')->where('any', '.*');

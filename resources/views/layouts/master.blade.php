@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>e-ADM SMA</title>
+    <title>e-ADM SMANBOS</title>
 
     <link rel="stylesheet" href="/css/app.css">
 </head>
@@ -55,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Brand Logo -->
             <a href="/home" class="brand-link">
                 <img src="./img/logo.png" alt="e-ADM SMA Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">e-ADM SMA</span>
+                <span class="brand-text font-weight-light">e-ADM SMANBOS</span>
             </a>
 
             <!-- Sidebar -->
@@ -165,10 +165,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                         </div><!-- /.col -->
                         <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">{{ Auth::user()->name }}</li>
-                            </ol>
+
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -181,6 +178,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="row">
 
                         <router-view></router-view>
+                        <vue-progress-bar></vue-progress-bar>
                     </div>
 
                     <!-- /.row -->

@@ -16,6 +16,14 @@ Vue.component(AlertError.name, AlertError);
 
 import VueRouter from 'vue-router';
 
+import VueProgressBar from 'vue-progressbar';
+
+Vue.use(VueProgressBar, {
+    color: 'rgb(143, 255, 199)',
+    failedColor: 'red',
+    height: '4px'
+});
+
 Vue.use(VueRouter);
 
 const routes = [{
@@ -71,3 +79,24 @@ const app = new Vue({
     el: '#app',
     router
 });
+
+let Fire = new Vue();
+window.Fire = Fire;
+
+Vue.filter('capitalize', function (text) {
+
+    return text.charAt(0).toUpperCase() + text.slice(1)
+});
+
+import moment from 'moment';
+
+Vue.filter('tanggal', function (tgl) {
+
+    moment.locale('id');
+    return moment(tgl).format('LL');
+});
+
+import Swal from 'sweetalert2'
+window.Swal = Swal;
+
+

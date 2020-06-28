@@ -1,23 +1,14 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div class="card card-primary card-outline">
+        <div class="card card-primary card-outline mt-4">
           <div class="card-header">
-            <h3 class="card-title">Daftar Pengguna / Akun</h3>
+            <h3 class="card-title">Users List</h3>
 
             <div class="card-tools">
-              <button class="btn btn-outline-danger" data-toggle="modal" data-target="#addNew">
-                <i class="fas fa-fw fa-file-pdf"></i>
-                Rekap PDF/Print
-              </button>
-              <button class="btn btn-outline-success" data-toggle="modal" data-target="#addNew">
-                <i class="fas fa-fw fa-file-excel"></i>
-                Export Excel
-              </button>
-              <button class="btn btn-primary" @click="newModal">
-                <i class="fas fa-fw fa-user-plus"></i>
-                Tambah Pengguna
+              <button class="btn btn-success" @click="newModal">
+                <i class="fa fa-user-plus"></i> Add New Users
               </button>
             </div>
           </div>
@@ -26,38 +17,33 @@
             <table class="table table-hover text-nowrap">
               <thead>
                 <tr>
-                  <th>No</th>
-                  <th>Nama Lengkap</th>
+                  <th>ID</th>
+                  <th>Name</th>
                   <th>Email</th>
-                  <th>Jenis Akun</th>
-                  <th>Tgl Terdaftar</th>
-                  <th>Tgl Perubahan</th>
-                  <th>Aksi</th>
+                  <th>Type</th>
+                  <th>Registered At</th>
+                  <th>Modify</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(user, index) in users" :key="user.id">
-                  <td>{{index+1}}</td>
-                  <td>{{user.name | capitalize}}</td>
+                <tr v-for="user in users" :key="user.id">
+                  <td>{{user.id}}</td>
+                  <td>{{user.name | upText}}</td>
                   <td>{{user.email}}</td>
                   <td>
-                    <span class="badge badge-dark">{{user.type | capitalize}}</span>
+                    <span class="badge badge-dark">{{user.type | upText}}</span>
                   </td>
                   <td>
-                    <span class="badge badge-secondary">{{user.created_at | tanggal}}</span>
+                    <span class="badge badge-secondary">{{user.created_at | myDate}}</span>
                   </td>
                   <td>
-                    <span class="badge badge-secondary">{{user.updated_at | tanggal}}</span>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-success" @click="editModal(user)">
-                      <i class="fas fa-edit fa-fw"></i>
-                      Edit
-                    </button>
-                    <button class="btn btn-sm btn-danger" @click="deleteUser(user.id)">
-                      <i class="fas fa-trash fa-fw"></i>
-                      Delete
-                    </button>
+                    <a href="#" @click="editModal(user)" class="btn btn-sm btn-primary">
+                      <i class="fa fa-edit"></i> Edit
+                    </a>
+
+                    <a href="#" @click="deleteUser(user.id)" class="btn btn-sm btn-danger">
+                      <i class="fa fa-trash"></i> Delete
+                    </a>
                   </td>
                 </tr>
               </tbody>
@@ -65,35 +51,32 @@
           </div>
           <!-- /.card-body -->
         </div>
+
         <!-- /.card -->
       </div>
     </div>
-    <div
-      class="modal fade"
-      id="addNew"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="addNewLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
+
+    <!-- Modal -->
+    <div class="modal fade" id="addNew" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addNewLabel">Tambah Pengguna / Akun</h5>
+            <h4 class="modal-title" v-show="!editmode">Add New User</h4>
+            <h4 class="modal-title" v-show="editmode">Update User</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+              <span aria-hidden="true">×</span>
             </button>
           </div>
-          <form @submit.prevent="editmode ? updateUser() : tambahUser()">
+          <form @submit.prevent="editmode ? updateUser() : createUser()">
             <div class="modal-body">
               <div class="form-group">
                 <input
                   v-model="form.name"
                   type="text"
                   name="name"
+                  placeholder="Name"
                   class="form-control"
                   :class="{ 'is-invalid': form.errors.has('name') }"
-                  placeholder="Masukan Nama"
                 />
                 <has-error :form="form" field="name"></has-error>
               </div>
@@ -103,11 +86,39 @@
                   v-model="form.email"
                   type="email"
                   name="email"
+                  placeholder="Email Address"
                   class="form-control"
                   :class="{ 'is-invalid': form.errors.has('email') }"
-                  placeholder="Masukan Email"
                 />
                 <has-error :form="form" field="email"></has-error>
+              </div>
+
+              <div class="form-group">
+                <textarea
+                  v-model="form.bio"
+                  type="text"
+                  name="bio"
+                  placeholder="Keterangan diri (Opsional)"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('bio') }"
+                ></textarea>
+                <has-error :form="form" field="bio"></has-error>
+              </div>
+
+              <div class="form-group">
+                <select
+                  v-model="form.type"
+                  type="text"
+                  name="type"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('type') }"
+                >
+                  <option value>Select User Role</option>
+                  <option value="admin">Admin</option>
+                  <option value="user">Standart User</option>
+                  <option value="author">Author</option>
+                </select>
+                <has-error :form="form" field="type"></has-error>
               </div>
 
               <div class="form-group">
@@ -115,55 +126,20 @@
                   v-model="form.password"
                   type="password"
                   name="password"
+                  placeholder="Password"
                   class="form-control"
                   :class="{ 'is-invalid': form.errors.has('password') }"
-                  placeholder="Masukan Password"
                 />
                 <has-error :form="form" field="password"></has-error>
               </div>
-
-              <div class="form-group">
-                <label for="type">Tipe Akun</label>
-                <select
-                  class="form-control"
-                  v-model="form.type"
-                  name="type"
-                  :class="{ 'is-invalid': form.errors.has('type') }"
-                >
-                  <option class="font-italic" value>Pilih jenis akun</option>
-                  <option value="admin">Admin</option>
-                  <option value="user">User</option>
-                </select>
-                <has-error :form="form" field="type"></has-error>
-              </div>
-
-              <div class="form-group">
-                <textarea
-                  v-model="form.bio"
-                  name="bio"
-                  :class="{ 'is-invalid': form.errors.has('bio') }"
-                  class="form-control"
-                  id="bio"
-                  rows="3"
-                  placeholder="Isikan Biodata/Keterangan (Opsional)"
-                ></textarea>
-                <has-error :form="form" field="bio"></has-error>
-              </div>
-
-              <!-- <div class="form-group">
-              <label for="photo">Foto Profil</label>
-              <input type="file" class="form-control-file" id="photo" />
-              </div>-->
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                <i class="fas fa-fw fa-ban"></i> Cancel
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="submit" v-show="editmode" class="btn btn-primary">
+                <i class="fa fa-save fa-fw"></i> Update
               </button>
-              <button type="submit" v-show="editmode" class="btn btn-success">
-                <i class="fas fa-fw fa-edit"></i> Update
-              </button>
-              <button type="submit" v-show="!editmode" class="btn btn-primary">
-                <i class="fas fa-fw fa-user-plus"></i> Tambah
+              <button type="submit" v-show="!editmode" class="btn btn-success">
+                <i class="fa fa-save fa-fw"></i> Create
               </button>
             </div>
           </form>
@@ -174,6 +150,8 @@
 </template>
 
 <script>
+import Form from "vform";
+
 export default {
   data() {
     return {
@@ -190,6 +168,7 @@ export default {
       })
     };
   },
+
   methods: {
     newModal() {
       this.editmode = false;
@@ -207,18 +186,18 @@ export default {
       axios.get("api/user").then(({ data }) => (this.users = data.data));
       this.$Progress.finish();
     },
-    tambahUser() {
+    createUser() {
       this.$Progress.start();
       this.form
         .post("api/user")
         .then(() => {
           $("#addNew").modal("hide");
-          this.$emit("afterSubmit");
+          Toast.fire({
+            icon: "success",
+            title: "User created successfully"
+          });
+          Fire.$emit("afterCreate");
           this.$Progress.finish();
-          toastr.success(
-            "Pengguna Berhasil di tambahkan",
-            "Berhasil di daftarkan"
-          );
         })
         .catch(() => {
           this.$Progress.fail();
@@ -230,9 +209,9 @@ export default {
         .put("api/user/" + this.form.id)
         .then(() => {
           $("#addNew").modal("hide");
-          this.$emit("afterSubmit");
+          Swal.fire("Updated!", "Your file has been updated.", "success");
+          Fire.$emit("afterCreate");
           this.$Progress.finish();
-          toastr.success("Data Berhasil di update", "Berhasil di update");
         })
         .catch(() => {
           this.$Progress.fail();
@@ -253,7 +232,7 @@ export default {
             .delete("api/user/" + id)
             .then(() => {
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
-              this.$emit("afterSubmit");
+              Fire.$emit("afterCreate");
             })
             .catch(() => {
               Swal.fire({
@@ -267,9 +246,10 @@ export default {
       });
     }
   },
+
   created() {
     this.loadUsers();
-    this.$on("afterSubmit", () => {
+    Fire.$on("afterCreate", () => {
       this.loadUsers();
     });
   }

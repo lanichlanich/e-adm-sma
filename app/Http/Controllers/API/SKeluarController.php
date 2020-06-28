@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\User;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use App\S_keluar;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class SKeluarController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::latest()->paginate(10);
+        return S_keluar::latest()->paginate(10);
     }
 
     /**
@@ -28,19 +27,21 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'  => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users',
-            'password'  => 'required|string|min:6',
-            'type'      => 'required|string|max:191'
+            'no_surat'  => 'required|string|max:191|unique:s_keluars',
+            'judul' => 'required|string|max:191',
+            'tujuan'  => 'required|string|max:191',
+            'tgl_surat'  => 'required'
         ]);
 
-        return User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'type' => $request['type'],
-            'bio' => $request['bio'],
-            'photo' => $request['photo'],
+
+
+        return S_keluar::create([
+            'no_surat' => $request['no_surat'],
+            'judul' => $request['judul'],
+            'tujuan' => $request['tujuan'],
+            'keterangan' => $request['keterangan'],
+            'tgl_surat' => $request['tgl_surat'],
+            'softfile' => $request['softfile'],
         ]);
     }
 
@@ -64,13 +65,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $s_keluar = S_keluar::findOrFail($id);
         $this->validate($request, [
-            'name' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users,email,' . $user->id,
-            'password' => 'sometimes|min:6',
+            'no_surat'  => 'required|string|max:191|unique:s_keluars,no_surat,' . $s_keluar->id,
+            'judul' => 'required|string|max:191',
+            'tujuan'  => 'required|string|max:191',
+            'tgl_surat'  => 'required'
         ]);
-        $user->update($request->all());
+        $s_keluar->update($request->all());
     }
 
     /**
@@ -81,7 +83,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        $s_keluar = S_keluar::findOrFail($id);
+        $s_keluar->delete();
     }
 }
